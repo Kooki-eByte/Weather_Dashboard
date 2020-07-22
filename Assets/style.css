@@ -112,6 +112,9 @@ li {
 }
 
 .right-side {
-  background-color: #00635d;
-  width: 100%;
+  display: grid;
+}
+
+.city-info-title {
+  font-size: 40px;
 }

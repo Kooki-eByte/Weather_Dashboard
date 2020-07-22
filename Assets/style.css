@@ -1,0 +1,117 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  background-color: #446df6;
+  color: #ffffff;
+  text-align: center;
+  padding: 1em 0;
+}
+
+.left-side {
+  float: left;
+  background-color: #efefef;
+  width: 20rem;
+}
+
+h4 {
+  margin-top: 20px;
+  margin-left: 10px;
+  line-height: 5px;
+}
+
+.user-search {
+  padding: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-radius: 5px 0 0 5px;
+  float: left;
+  width: 12em;
+}
+
+.search-btn {
+  width: 3em;
+  padding: 10px;
+  padding-bottom: 17px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 17px;
+  border-left: none; /* Prevent double borders */
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #446df6;
+}
+
+form::after {
+  content: "";
+  clear: both;
+}
+
+#previous-search-holder {
+  list-style-type: none;
+  margin-bottom: 10px;
+  width: 17rem;
+  cursor: pointer;
+}
+
+li {
+  color: #383838bb;
+}
+
+#city-0:hover {
+  background-color: #c4c4c4;
+}
+
+#city-1:hover {
+  background-color: #c4c4c4;
+}
+
+#city-2:hover {
+  background-color: #c4c4c4;
+}
+
+#city-3:hover {
+  background-color: #c4c4c4;
+}
+
+#city-4:hover {
+  background-color: #c4c4c4;
+}
+
+#city-5:hover {
+  background-color: #c4c4c4;
+}
+
+#city-6:hover {
+  background-color: #c4c4c4;
+}
+
+#city-7:hover {
+  background-color: #c4c4c4;
+}
+
+#city-8:hover {
+  background-color: #c4c4c4;
+}
+
+#city-9:hover {
+  background-color: #c4c4c4;
+}
+
+.right-side {
+  background-color: #00635d;
+  width: 100%;
+}

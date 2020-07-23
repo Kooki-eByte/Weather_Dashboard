@@ -37,11 +37,9 @@ $(document).ready(function () {
 
   function displayMainForecast(city, humidity, windSpd, WeatherIcon, temp) {
     // City title
-    $("#city-info-title").text("");
     $("#city-info-title").text(city + " ");
 
     // todays date
-    $("#today-date").text("");
     $("#today-date").text(now);
 
     // Weather icon
@@ -54,15 +52,12 @@ $(document).ready(function () {
     $("#weather-icon").append(createImg);
 
     // temp
-    $("#jumbo-temp").text("");
     $("#jumbo-temp").text(Math.ceil(temp));
 
     // humid
-    $("#jumbo-humid").text("");
     $("#jumbo-humid").text(humidity + "%");
 
     // wind
-    $("#jumbo-wind").text("");
     $("#jumbo-wind").text(windSpd + " MPH");
 
     // UV index will be displayed in the 5 day api since that one holds the uv index
@@ -82,16 +77,49 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log("------- 5 day forecast -------");
       console.log(response);
+
       // Display the current day UV index
       let uvi = response.daily[0].uvi;
       $("#jumbo-uv").text(uvi);
+      if (uvi >= 11) {
+        $("#jumbo-uv").attr("style", "background-color: purple");
+      } else if (uvi >= 8) {
+        $("#jumbo-uv").attr("style", "background-color: red");
+      } else if (uvi >= 6) {
+        $("#jumbo-uv").attr("style", "background-color: orange");
+      } else if (uvi >= 3) {
+        $("#jumbo-uv").attr("style", "background-color: yellow");
+      } else {
+        $("#jumbo-uv").attr("style", "background-color: green");
+      }
 
-      display5DayForecast();
+      // Getting data for the display Function
+      let dailyIconArr = [];
+      let dailyTempArr = [];
+      let dailyHumidArr = [];
+
+      for (let i = 1; i < 6; i++) {
+        dailyIconArr.push(response.daily[i].weather[0].icon);
+
+        let tempK = response.daily[i].temp.max;
+        let tempF = Math.ceil(tempK * (9 / 5) - 459.67);
+        dailyTempArr.push(tempF);
+
+        dailyHumidArr.push(response.daily[i].humidity);
+      }
+      console.log(dailyIconArr);
+      console.log(dailyTempArr);
+      console.log(dailyHumidArr);
+
+      display5DayForecast(dailyIconArr, dailyTempArr, dailyHumidArr);
     });
   }
 
   function display5DayForecast() {
-    console.log("hello world");
+    // date
+    // icon
+    // temp
+    // Humidity
   }
 
   $(".search-btn").on("click", (event) => {

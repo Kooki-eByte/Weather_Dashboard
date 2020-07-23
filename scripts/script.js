@@ -1,8 +1,10 @@
 $(document).ready(function () {
+  // global varibales
   const listHolder = $("#search-holder");
   const now = moment().format("LL");
   let counter = 0;
 
+  // add the searched city name to a list and put it under the search bar
   function addCityToList(city) {
     counter++;
     let createLi = $("<li>");
@@ -15,6 +17,7 @@ $(document).ready(function () {
     }
   }
 
+  // get the main page forecast data
   function getMainForecast(queryUrl) {
     $.ajax({
       url: queryUrl,
@@ -35,6 +38,7 @@ $(document).ready(function () {
     });
   }
 
+  // Display the main page forecast
   function displayMainForecast(city, humidity, windSpd, WeatherIcon, temp) {
     // City title
     $("#city-info-title").text(city + " ");
@@ -63,6 +67,7 @@ $(document).ready(function () {
     // UV index will be displayed in the 5 day api since that one holds the uv index
   }
 
+  // Get 5 day forecast Data
   function get5DayForecast(lati, long) {
     let queryUrl5Day =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -127,6 +132,7 @@ $(document).ready(function () {
     });
   }
 
+  // Display the 5 day forecast
   function display5DayForecast(dailyTime, dailyIcon, dailyTempF, dailyHumid) {
     for (let i = 0; i < dailyTempF.length; i++) {
       // date
@@ -147,10 +153,11 @@ $(document).ready(function () {
     }
   }
 
+  // event listener for the search-btn
   $(".search-btn").on("click", (event) => {
     event.preventDefault();
 
-    let cityName = $(".user-search").val();
+    let cityName = $(".user-search").val().trim();
 
     if (cityName !== "") {
       addCityToList(cityName);
@@ -163,5 +170,16 @@ $(document).ready(function () {
     } else {
       return $(".user-search").val("");
     }
+  });
+
+  // event listener for the list items
+  $(document).on("click", "#city", (event) => {
+    event.preventDefault();
+    let cityName = event.target.textContent;
+    let queryUrlMain =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      cityName +
+      "&appid=b69a42c83210378fa102751081b2696f";
+    getMainForecast(queryUrlMain);
   });
 });

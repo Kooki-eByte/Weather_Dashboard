@@ -1,74 +1,114 @@
-var lat;
-var lon;
-// let cityName = "boston";
+$(document).ready(function () {
+  var lat;
+  var lon;
+  // let cityName = "boston";
 
-const listHolder = $("#search-holder");
+  const listHolder = $("#search-holder");
 
-const now = moment().format("LL");
-console.log(now);
+  const now = moment().format("LL");
 
-function addCityToList(city) {
-  // <li class="list-group-item" id="city-0">Boston</li>
-  let createLi = $("<li>");
-  createLi.text(city);
-  createLi.attr("class", "list-group-item");
-  createLi.attr("id", "city-0");
-  listHolder.prepend(createLi);
-}
+  function addCityToList(city) {
+    let createLi = $("<li>");
+    createLi.text(city);
+    createLi.attr("class", "list-group-item");
+    createLi.attr("id", "city-0");
+    listHolder.prepend(createLi);
+  }
 
-function displayMainForecast(response) {
-  console.log(response);
-}
+  function getMainForecast(queryUrl) {
+    $.ajax({
+      url: queryUrl,
+      method: "GET",
+    }).then(function (response) {
+      console.log("------- One day forecast -------");
+      let city = response.name; // city name
+      let tempK = response.main.temp; // temp in kelvin
+      let tempF = tempK * (9 / 5) - 459.67;
+      let humid = response.main.humidity; // humidity
+      let windSpeed = response.wind.speed; // wind speed
+      let weatherIcon = response.weather[0].icon; // weather icon
+      displayMainForecast(city, humid, windSpeed, weatherIcon, tempF);
+      // Info for the 5 day forecast
+      let lat = response.coord.lat;
+      let lon = response.coord.lon;
+      get5DayForecast(lat, lon);
+    });
+  }
 
-function display5DayForecast() {}
+  function displayMainForecast(city, humidity, windSpd, WeatherIcon, temp) {
+    // City title
+    $("#city-info-title").text("");
+    $("#city-info-title").text(city + " ");
 
-// $.ajax({
-//   url: queryUrlMain,
-//   method: "GET",
-// }).then(function (response) {
-//   console.log("------- One day forecast -------");
-//   lat = response.coord.lat;
-//   lon = response.coord.lon;
-//   console.log(response);
-//   console.log(response.name); // city name
-//   console.log(response.main.temp); // temp in kelvin
-//   console.log(response.main.humidity); // humidity
-//   console.log(response.wind.speed); // wind speed
-//   //   console.log(response);
-//   let queryUrl5Day =
-//     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-//     lat +
-//     "&lon=" +
-//     lon +
-//     "&exclude=current,minutely,hourly&appid=b69a42c83210378fa102751081b2696f";
+    // todays date
+    $("#today-date").text("");
+    $("#today-date").text(now);
 
-//   $.ajax({
-//     url: queryUrl5Day,
-//     method: "GET",
-//   }).then(function (response) {
-//     console.log("------- 5 day forecast -------");
-//     console.log(response);
-//   });
-// });
+    // Weather icon
+    $("#weather-icon").empty();
+    let createImg = $("<img>");
+    createImg.attr(
+      "src",
+      "http://openweathermap.org/img/wn/" + WeatherIcon + "@2x.png"
+    );
+    $("#weather-icon").append(createImg);
 
-$(".search-btn").on("click", function (event) {
-  event.preventDefault();
+    // temp
+    $("#jumbo-temp").text("");
+    $("#jumbo-temp").text(Math.ceil(temp));
 
-  let cityName = $(".user-search").val();
-  if (cityName !== "") {
-    addCityToList(cityName);
+    // humid
+    $("#jumbo-humid").text("");
+    $("#jumbo-humid").text(humidity + "%");
 
-    let queryUrlMain =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      cityName +
-      "&appid=b69a42c83210378fa102751081b2696f";
-    displayMainForecast(queryUrlMain);
+    // wind
+    $("#jumbo-wind").text("");
+    $("#jumbo-wind").text(windSpd + " MPH");
+
+    // UV index will be displayed in the 5 day api since that one holds the uv index
+  }
+
+  function get5DayForecast(lati, long) {
+    let queryUrl5Day =
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      lati +
+      "&lon=" +
+      long +
+      "&exclude=current,minutely,hourly&appid=b69a42c83210378fa102751081b2696f";
 
     $.ajax({
-      url: queryUrlMain,
+      url: queryUrl5Day,
       method: "GET",
-    }).then(displayMainForecast);
-  } else {
-    return $(".user-search").val("");
+    }).then(function (response) {
+      console.log("------- 5 day forecast -------");
+      console.log(response);
+      // Display the current day UV index
+      let uvi = response.daily[0].uvi;
+      $("#jumbo-uv").text(uvi);
+
+      display5DayForecast();
+    });
   }
+
+  function display5DayForecast() {
+    console.log("hello world");
+  }
+
+  $(".search-btn").on("click", (event) => {
+    event.preventDefault();
+
+    let cityName = $(".user-search").val();
+
+    if (cityName !== "") {
+      addCityToList(cityName);
+      let queryUrlMain =
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
+        cityName +
+        "&appid=b69a42c83210378fa102751081b2696f";
+      getMainForecast(queryUrlMain);
+      $(".user-search").val("");
+    } else {
+      return $(".user-search").val("");
+    }
+  });
 });

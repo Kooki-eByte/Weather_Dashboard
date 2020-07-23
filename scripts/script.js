@@ -16,7 +16,9 @@ function addCityToList(city) {
   listHolder.prepend(createLi);
 }
 
-function displayMainForecast(queryUrl) {}
+function displayMainForecast(response) {
+  console.log(response);
+}
 
 function display5DayForecast() {}
 
@@ -53,21 +55,19 @@ $(".search-btn").on("click", function (event) {
   event.preventDefault();
 
   let cityName = $(".user-search").val();
-  addCityToList(cityName);
-
-  let queryUrlMain =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    cityName +
-    "&appid=b69a42c83210378fa102751081b2696f";
-  displayMainForecast(queryUrlMain);
-
   if (cityName !== "") {
+    addCityToList(cityName);
+
+    let queryUrlMain =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      cityName +
+      "&appid=b69a42c83210378fa102751081b2696f";
+    displayMainForecast(queryUrlMain);
+
     $.ajax({
       url: queryUrlMain,
       method: "GET",
-    }).then(function (response) {
-      console.log(response);
-    });
+    }).then(displayMainForecast);
   } else {
     return $(".user-search").val("");
   }

@@ -94,6 +94,7 @@ $(document).ready(function () {
       }
 
       // Getting data for the display Function
+      let dailyDateArr = [];
       let dailyIconArr = [];
       let dailyTempArr = [];
       let dailyHumidArr = [];
@@ -106,20 +107,44 @@ $(document).ready(function () {
         dailyTempArr.push(tempF);
 
         dailyHumidArr.push(response.daily[i].humidity);
+
+        let date = response.daily[i].dt;
+        let dailyDate = new Date(date * 1000).toLocaleDateString("en-US");
+        dailyDateArr.push(dailyDate);
       }
+
+      console.log(dailyDateArr);
       console.log(dailyIconArr);
       console.log(dailyTempArr);
       console.log(dailyHumidArr);
 
-      display5DayForecast(dailyIconArr, dailyTempArr, dailyHumidArr);
+      display5DayForecast(
+        dailyDateArr,
+        dailyIconArr,
+        dailyTempArr,
+        dailyHumidArr
+      );
     });
   }
 
-  function display5DayForecast() {
-    // date
-    // icon
-    // temp
-    // Humidity
+  function display5DayForecast(dailyTime, dailyIcon, dailyTempF, dailyHumid) {
+    for (let i = 0; i < dailyTempF.length; i++) {
+      // date
+      let dateForecast = $("#forecast-date-" + i);
+      dateForecast.text(dailyTime[i]);
+      // icon
+      let iconForecast = $("#forecast-icon-" + i);
+      iconForecast.attr(
+        "src",
+        "http://openweathermap.org/img/wn/" + dailyIcon[i] + "@2x.png"
+      );
+      // temp
+      let tempForecast = $("#forecast-temp-" + i);
+      tempForecast.text(dailyTempF[i]);
+      // Humidity
+      let humidForecast = $("#forecast-humid-" + i);
+      humidForecast.text(dailyHumid[i]);
+    }
   }
 
   $(".search-btn").on("click", (event) => {

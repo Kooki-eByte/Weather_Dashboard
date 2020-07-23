@@ -1,18 +1,18 @@
 $(document).ready(function () {
-  var lat;
-  var lon;
-  // let cityName = "boston";
-
   const listHolder = $("#search-holder");
-
   const now = moment().format("LL");
+  let counter = 0;
 
   function addCityToList(city) {
+    counter++;
     let createLi = $("<li>");
     createLi.text(city);
     createLi.attr("class", "list-group-item");
-    createLi.attr("id", "city-0");
+    createLi.attr("id", "city");
     listHolder.prepend(createLi);
+    if (counter > 10) {
+      $("li", listHolder).last().remove();
+    }
   }
 
   function getMainForecast(queryUrl) {

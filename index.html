@@ -7,7 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -22,6 +23,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>Weather Dashboard</title>
   </head>
@@ -43,38 +45,72 @@
         </form>
         <br />
         <div class="card ml-2" id="previous-search-holder">
-          <ul class="list-group list-group-flush"></ul>
-            <li class="list-group-item" id="city-0">Boston</li>
-            <li class="list-group-item" id="city-1">Orlando</li>
-            <li class="list-group-item" id="city-2">Cleveland</li>
-            <li class="list-group-item" id="city-3">Boston</li>
-            <li class="list-group-item" id="city-4">Orlando</li>
-            <li class="list-group-item" id="city-5">Cleveland</li>
-            <li class="list-group-item" id="city-6">Boston</li>
-            <li class="list-group-item" id="city-7">Orlando</li>
-            <li class="list-group-item" id="city-8">Cleveland</li>
-            <li class="list-group-item" id="city-9">Cleveland</li>
-          </ul>
+          <ul class="list-group list-group-flush" id="search-holder"></ul>
         </div>
       </article>
       <article class="right-side">
           <div class="container">
             <div>
                 <div class="jumbotron jumbotron-fluid">
-                      <h1 class="city-info-title">Placeholder City Name (mm/dd/yyyy)<span> Icon </span></h1>
+                      <h1 class="jumbo-info city-info-title">Placeholder City Name <span id="today-date">(mm/dd/yyyy)</span><span id="weather-icon"> Icon </span></h1>
                       <br>
-                      <p class="jumbo-temp">Temperature: </p>
-                      <p class="jumbo-humid">Humidity: </p>
-                      <p class="jumbo-wind">Wind Speed: </p>
-                      <p class="jumbo-uv">UV Index: </p>
+                      <p class="jumbo-info jumbo-temp">Temperature: <span>0</span></p>
+                      <p class="jumbo-info jumbo-humid">Humidity: <span>0</span></p>
+                      <p class="jumbo-info jumbo-wind">Wind Speed: <span>0</span></p>
+                      <p class="jumbo-info jumbo-uv">UV Index: <span>0</span></p>
+                </div>
+                <h4>5-Day Forecast:</h4>
+                <div class="card-deck">
+                    <div class="card mt-2">
+                      <div class="card-body">
+                        <h5 class="card-title">Date</h5>
+                        <p>Icon</p>
+                        <p class="card-text">Temp: </p>
+                        <p class="card-text">Humidity: </p>
+                      </div>
+                      </div>
+                    
+                    <div class="card mt-2">
+                      <div class="card-body">
+                        <h5 class="card-title">Date</h5>
+                        <p>Icon</p>
+                        <p class="card-text">Temp: </p>
+                        <p class="card-text">Humidity: </p>
+                      </div>
                     </div>
+                    <div class="card mt-2">
+                      <div class="card-body">
+                        <h5 class="card-title">Date</h5>
+                        <p>Icon</p>
+                        <p class="card-text">Temp: </p>
+                        <p class="card-text">Humidity: </p>
+                      </div>
+                    </div>
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Date</h5>
+                            <p>Icon</p>
+                            <p class="card-text">Temp: </p>
+                            <p class="card-text">Humidity: </p>
+                        </div>
+                      </div>
+                      <div class="card mt-2">
+                        <div class="card-body">
+                          <h5 class="card-title">Date</h5>
+                          <p>Icon</p>
+                          <p class="card-text">Temp: </p>
+                          <p class="card-text">Humidity: </p>
+                        </div>
+                      </div>
                   </div>
+                </div>
             </div>
-          </div>
+        </div>
       </article>
     </main>
     <footer></footer>
     <!-- Optional JavaScript -->
+    <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="./scripts/script.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script

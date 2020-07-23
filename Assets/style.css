@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: "Lobster", cursive;
 }
 
 body {
@@ -115,6 +116,16 @@ li {
   display: grid;
 }
 
+.jumbo-info {
+  margin-left: 2rem;
+}
+
 .city-info-title {
   font-size: 40px;
 }
+
+.card {
+  background-color: #89daff;
+}
+
+/* ! Add media query later for responsiveness for mobile and website */

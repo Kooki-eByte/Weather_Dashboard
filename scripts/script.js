@@ -3,7 +3,7 @@ $(document).ready(function () {
   const listHolder = $("#search-holder");
   const now = moment().format("LL");
   let counter = 0;
-
+  let storedName = JSON.parse(localStorage.getItem("storedName"));
   // add the searched city name to a list and put it under the search bar
   function addCityToList(city) {
     counter++;
@@ -23,7 +23,6 @@ $(document).ready(function () {
       url: queryUrl,
       method: "GET",
     }).then(function (response) {
-      console.log("------- One day forecast -------");
       let city = response.name; // city name
       let tempK = response.main.temp; // temp in kelvin
       let tempF = tempK * (9 / 5) - 459.67;
@@ -80,9 +79,6 @@ $(document).ready(function () {
       url: queryUrl5Day,
       method: "GET",
     }).then(function (response) {
-      console.log("------- 5 day forecast -------");
-      console.log(response);
-
       // Display the current day UV index
       let uvi = response.daily[0].uvi;
       $("#jumbo-uv").text(uvi);
@@ -118,11 +114,6 @@ $(document).ready(function () {
         dailyDateArr.push(dailyDate);
       }
 
-      console.log(dailyDateArr);
-      console.log(dailyIconArr);
-      console.log(dailyTempArr);
-      console.log(dailyHumidArr);
-
       display5DayForecast(
         dailyDateArr,
         dailyIconArr,
@@ -153,18 +144,34 @@ $(document).ready(function () {
     }
   }
 
+  function getCity() {
+    if (localStorage.getItem("storedName") !== null) {
+      let cityName = JSON.parse(localStorage.getItem("storedName"));
+
+      let queryUrlMain = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=b69a42c83210378fa102751081b2696f`;
+
+      getMainForecast(queryUrlMain);
+    }
+  }
+
+  getCity();
+
   // event listener for the search-btn
   $(".search-btn").on("click", (event) => {
     event.preventDefault();
 
     let cityName = $(".user-search").val().trim();
-
+    storedName = $(".user-search").val().trim();
     if (cityName !== "") {
+      localStorage.setItem("storedName", JSON.stringify(storedName));
+
       addCityToList(cityName);
+
       let queryUrlMain =
         "https://api.openweathermap.org/data/2.5/weather?q=" +
         cityName +
         "&appid=b69a42c83210378fa102751081b2696f";
+
       getMainForecast(queryUrlMain);
       $(".user-search").val("");
     } else {

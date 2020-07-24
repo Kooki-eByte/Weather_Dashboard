@@ -77,6 +77,7 @@ li {
 }
 
 .right-side {
+  overflow: auto;
   display: grid;
 }
 

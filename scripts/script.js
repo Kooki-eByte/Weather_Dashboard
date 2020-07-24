@@ -4,6 +4,7 @@ $(document).ready(function () {
   const now = moment().format("LL");
   let counter = 0;
   let storedName = JSON.parse(localStorage.getItem("storedName"));
+
   // add the searched city name to a list and put it under the search bar
   function addCityToList(city) {
     counter++;
@@ -144,6 +145,7 @@ $(document).ready(function () {
     }
   }
 
+  // function to grab the last searched city name in local storage and call the function with that city to start the page off
   function getCity() {
     if (localStorage.getItem("storedName") !== null) {
       let cityName = JSON.parse(localStorage.getItem("storedName"));

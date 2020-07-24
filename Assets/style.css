@@ -94,3 +94,11 @@ li {
 }
 
 /* ! Add media query later for responsiveness for mobile and website */
+@media only screen and (max-width: 1099px) {
+  .right-side {
+    overflow: hidden;
+    clear: both;
+    justify-content: center;
+    max-width: 100%;
+  }
+}

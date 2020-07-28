@@ -56,7 +56,7 @@ $(document).ready(function () {
     $("#weather-icon").append(createImg);
 
     // temp
-    $("#jumbo-temp").text(Math.ceil(temp));
+    $("#jumbo-temp").text(Math.ceil(temp) + "\u00B0F");
 
     // humid
     $("#jumbo-humid").text(humidity + "%");
@@ -138,10 +138,10 @@ $(document).ready(function () {
       );
       // temp
       let tempForecast = $("#forecast-temp-" + i);
-      tempForecast.text(dailyTempF[i]);
+      tempForecast.text(dailyTempF[i] + "\u00B0F");
       // Humidity
       let humidForecast = $("#forecast-humid-" + i);
-      humidForecast.text(dailyHumid[i]);
+      humidForecast.text(dailyHumid[i] + "%");
     }
   }
 

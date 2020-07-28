@@ -102,3 +102,31 @@ li {
     max-width: 100%;
   }
 }
+
+@media only screen and (max-width: 991px) {
+  .card-container {
+    font-size: 15px;
+  }
+
+  h5 {
+    font-size: 15px;
+  }
+
+  .forecast-icon {
+    height: 4em;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .card-container {
+    font-size: 20px;
+  }
+
+  h5 {
+    font-size: 25px;
+  }
+
+  .forecast-icon {
+    height: 4em;
+  }
+}
